@@ -6,7 +6,7 @@
 #+OPTIONS: timestamp:nil num:nil toc:nil
 #+REVEAL_TRANS: None
 #+REVEAL_THEME: white
-#+Title: Linux command line
+#+Title: Linux command line workshop
 #+Author: Lakshmi Narasimhan
 #+Email: lakshmi@platformatory.com
 
@@ -40,22 +40,23 @@ Navigating through directories
 
 
 ** Working with directories and files
-Creating directories
+
+*** Creating directories
 - =mkdir= (make directory): Creates a new directory.
    Example: =mkdir folder2=
 
-Creating files
+*** Creating files
 - =touch= (create empty file): Creates a new empty file.
    Example: =touch file3.txt=
 
-Renaming and deleting files and directories
+*** Renaming and deleting files and directories
 - =mv= (move or rename): Moves or renames a file or directory.
    Example: =mv file1.txt newfile.txt= or =mv folder1 newfolder=
 
 - =rm= (remove): Deletes a file or directory.
    Example: =rm file2.txt= or =rm -r folder1=
 
-Viewing file contents
+*** Viewing file contents
 - =cat= (concatenate and display): Displays the contents of a file.
    Example: =cat file3.txt=
 
@@ -81,12 +82,7 @@ Editing and modifying text
 Inserting, deleting, and replacing text
 Saving and closing files
 
-** Modifying file permissions
-Understanding file permissions (e.g., read, write, execute)
-Changing file permissions using numeric and symbolic notation
-- =chmod= (change file mode): Modifies file permissions.
-   Example: =chmod +x script.sh= (gives execute permission to a script)
-
+   
 ** Searching and replacing text in files
 Basic search operations
 - =grep= (search for patterns): Searches for a specific pattern in files.
@@ -198,8 +194,8 @@ Common package management commands (install, update, remove)
    Example: =tail -n 20 syslog= (displays the last 20 lines of the syslog file)
 
 ** Searching and filtering logs
-- =grep= (search for patterns): Searches for a specific pattern in files.
-   Example: =grep "error" syslog= (displays lines containing the word "error" in the syslog file)  
+
+Use combination of =grep= and optionally =find=.
 
 
 * Networking Basics
@@ -254,6 +250,10 @@ Common package management commands (install, update, remove)
 - =date= (display or set date and time): Displays the current date and time.
    Example: =date= (displays the current date and time)
 
+** Sleep
+
+=sleep <time-in-sec>= sleeps in the foreground for the designated time.
+
 * Crontab
 
 ** Introduction to cron
@@ -267,8 +267,6 @@ Scheduling tasks at specific times or intervals
 ** Writing cron job entries
 Cron syntax for defining job schedules
 Examples of common cron job entries   
-
-Certainly! Here are some examples of cron jobs with explanations:
 
 *** Scheduling a Daily Backup
    #+begin_src
@@ -296,7 +294,8 @@ Certainly! Here are some examples of cron jobs with explanations:
 
 *** Sending a Daily Email Reminder
    #+begin_src
-   0 8 * * * echo "Don't forget your daily tasks!" | mail -s "Daily Reminder" user@example.com
+   0 8 * * * echo "Don't forget your daily tasks!" |
+mail -s "Daily Reminder" user@example.com
    #+end_src
    This cron job sends an email reminder every day at 8:00 AM to the specified user (=user@example.com=). The reminder message can be customized as per the needs, and it serves as a helpful tool for sending automated reminders.
 
@@ -305,6 +304,7 @@ Certainly! Here are some examples of cron jobs with explanations:
 * Basic Shell Scripting
 ** Introduction to shell scripting
 Overview of shell scripting
+
 Different kinds of shells
 
 #+begin_src
@@ -314,10 +314,13 @@ echo $SHELL
 ** Writing and running shell scripts
 Creating and editing shell scripts
 Executing shell scripts
-Example: =#!/bin/bash=
+Example:
+
+=#!/bin/bash=
 
 ** Variables and control structures
 Declaring and using variables
+
 Conditional statements and loops in shell scripts
 
 ** Example: Backup Script
@@ -429,7 +432,12 @@ done
 #+end_src
 
 ** Storing the output of a command in a variable
-Executing commands within other commands ($(command))
+Executing commands within other commands
+
+#+begin_src
+$(command)
+#+end_src
+
 
 ** Error handling of previusly run command
 #+begin_src
@@ -451,7 +459,11 @@ set -x
 ** Setting Environmental Variables
 
 - To set an environmental variable, you can use the =export= command followed by the variable name and value.
-   Example: =export MY_VARIABLE="Hello, World!"=
+   Example:
+
+#+begin_src
+export MY_VARIABLE="Hello, World!"
+#+end_src
 
 
 **Note** The changes made to environmental variables are only applicable to the current session or its child processes. To make the changes persistent, they should be added to the shell configuration file (e.g., =~/.bashrc= or =~/.bash_profile=).
@@ -459,8 +471,13 @@ set -x
 ** Unsetting Environmental Variables
 
 - To unset an environmental variable, you can use the =unset= command followed by the variable name.
-   Example: =unset MY_VARIABLE=
+   Example:
+   
+#+begin_src
+unset MY_VARIABLE
+#+end_src
 
+   
 ** Common Environmental Variables
 
 *** PATH
@@ -480,9 +497,6 @@ Contains the username of the currently logged-in user.
 - The shell will replace =$MY_VARIABLE= with the actual value of the variable when executing the command.
 
 - the command =env= will list all environmental variables in current session.
-
-
-Certainly! Here's an Org Reveal chapter on SSH:
 
 * ssh
 
