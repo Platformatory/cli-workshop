@@ -1,0 +1,654 @@
+:REVEAL_PROPERTIES:
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_REVEAL_JS_VERSION: 4
+:END:
+
+#+OPTIONS: timestamp:nil num:nil toc:nil
+#+REVEAL_TRANS: None
+#+REVEAL_THEME: white
+#+Title: Linux command line
+#+Author: Lakshmi Narasimhan
+#+Email: lakshmi@platformatory.com
+
+
+* Intro
+What is CLI
+
+Linux distributions and getting started
+
+Why use the commandline?
+
+
+* Getting Started with Command Line
+
+** Accessing the command line interface
+Terminal emulators on different operating systems
+Opening a terminal window
+Command: Terminal, gnome-terminal, cmd.exe, Powershell
+
+** Basic commands for navigation
+Understanding the file system hierarchy
+Navigating through directories
+- `pwd` (print working directory): Displays the current working directory.
+   Example: `pwd` -> /home/user/Documents
+
+- `ls` (list files and directories): Lists the contents of a directory.
+   Example: `ls` -> file1.txt  file2.txt  folder1
+
+- `cd` (change directory): Changes the current working directory.
+   Example: `cd folder1`
+
+
+** Working with directories and files
+Creating directories
+- `mkdir` (make directory): Creates a new directory.
+   Example: `mkdir folder2`
+
+Creating files
+- `touch` (create empty file): Creates a new empty file.
+   Example: `touch file3.txt`
+
+Renaming and deleting files and directories
+- `mv` (move or rename): Moves or renames a file or directory.
+   Example: `mv file1.txt newfile.txt` or `mv folder1 newfolder`
+
+- `rm` (remove): Deletes a file or directory.
+   Example: `rm file2.txt` or `rm -r folder1`
+
+Viewing file contents
+- `cat` (concatenate and display): Displays the contents of a file.
+   Example: `cat file3.txt`
+
+- `less` (view file with pagination): Displays the contents of a file one page at a time.
+   Example: `less file3.txt`
+
+
+* Working with Text Files
+
+** Introduction to text editors (e.g., Nano, Vim)
+Overview of text editors available in Linux
+Basic features and usage of Nano and Vim
+
+** Creating and editing text files
+Creating and opening text files
+- `nano` (Nano text editor): Opens the Nano text editor.
+   Example: `nano newfile.txt`
+
+- `vim` (Vim text editor): Opens the Vim text editor.
+   Example: `vim newfile.txt`
+
+Editing and modifying text
+Inserting, deleting, and replacing text
+Saving and closing files
+
+** Modifying file permissions
+Understanding file permissions (e.g., read, write, execute)
+Changing file permissions using numeric and symbolic notation
+- `chmod` (change file mode): Modifies file permissions.
+   Example: `chmod +x script.sh` (gives execute permission to a script)
+
+** Searching and replacing text in files
+Basic search operations
+- `grep` (search for patterns): Searches for a specific pattern in files.
+   Example: `grep "error" logfile.txt`
+
+Searching and replacing text within files
+- `sed` (stream editor): Modifies text within files using patterns.
+   Example: `sed 's/foo/bar/g' file.txt` (replaces all occurrences of 'foo' with 'bar')
+
+
+** Finding files
+
+*** Finding files by name
+   ```
+   find /path/to/directory -name "*.txt"
+   ```
+   This command searches for files with the extension `.txt` in the specified directory (`/path/to/directory`) and its subdirectories. It can be useful for locating specific files based on their names or extensions.
+
+*** Finding files by type
+   ```
+   find /path/to/directory -type f
+   ```
+   This command searches for regular files in the specified directory (`/path/to/directory`) and its subdirectories. It can be handy when you want to retrieve all files and exclude directories from the search results.
+
+*** Finding directories
+   ```
+   find /path/to/directory -type d
+   ```
+   This command searches for directories in the specified directory (`/path/to/directory`) and its subdirectories. It helps identify all directories within a given location.
+
+*** Finding files by size
+   ```
+   find /path/to/directory -size +1M
+   ```
+   This command searches for files in the specified directory (`/path/to/directory`) and its subdirectories that are larger than 1 megabyte. It allows you to find files based on their size criteria, such as searching for large files that may need attention.
+
+*** Finding recently modified files
+   ```
+   find /path/to/directory -type f -mtime -7
+   ```
+   This command searches for regular files in the specified directory (`/path/to/directory`) and its subdirectories that have been modified within the last 7 days. It helps locate recently modified files for backup or further processing.
+
+*** Executing commands on found files
+   ```
+   find /path/to/directory -name "*.log" -exec rm {} \;
+   ```
+   This command searches for files with the extension `.log` in the specified directory (`/path/to/directory`) and its subdirectories. For each found file, it executes the `rm` command to remove the file. The `{}` placeholder is replaced with the path of each found file.
+
+
+* File Permissions and Ownership
+
+** Understanding file permissions
+Overview of file permission concepts (read, write, execute)
+Symbolic notation (rwx) and numeric notation (octal)
+
+** Changing file permissions
+- `chmod` (change file mode): Modifies file permissions.
+   Example: `chmod u+x script.sh` (gives execute permission to the owner)
+
+** Viewing and modifying ownership
+-  chown (change owner): Changes the owner of a file or directory.
+   Example: `chown user1 file.txt`
+
+-  chgrp (change group): Changes the group of a file or directory.
+   Example: `chgrp group1 file.txt`
+
+
+* Process Management
+
+** Listing processes
+-  ps (process status): Displays information about active processes.
+   Example: `ps -ef` (displays detailed information about all processes)
+
+** Killing processes
+-  kill (send signal to a process): Terminates a running process.
+   Example: `kill 1234` (sends a SIGTERM signal to process ID 1234)
+
+-  killall (kill processes by name): Terminates processes based on their names.
+   Example: `killall firefox` (terminates all instances of the Firefox browser)
+
+
+* Package Management
+
+** Package management systems
+Overview of package management systems (APT, YUM, DNF)
+Common package management commands (install, update, remove)
+
+** Installing packages
+-  apt-get: Installs packages from repositories.
+   Example: `apt-get install package-name` (installs a package)
+
+** Updating packages
+-  apt-get: Updates installed packages.
+   Example: `apt-get upgrade` (upgrades all installed packages)
+
+** Removing packages
+-  apt-get: Removes installed packages.
+   Example: `apt-get remove package-name` (removes a package)
+
+
+* System Monitoring and Logs
+
+** Monitoring system resources
+- `top` (monitor system activity): Displays real-time information about system resources.
+   Example: `top` (displays CPU and memory usage)
+
+** Viewing system logs
+- `tail` (output the last part of files): Displays the last lines of a file (usually log files).
+   Example: `tail -n 20 syslog` (displays the last 20 lines of the syslog file)
+
+** Searching and filtering logs
+- `grep` (search for patterns): Searches for a specific pattern in files.
+   Example: `grep "error" syslog` (displays lines containing the word "error" in the syslog file)  
+
+
+* Networking Basics
+
+** Checking network configuration
+- `ifconfig` (interface configuration): Displays information about network interfaces.
+   Example: `ifconfig` (displays the network configuration of all interfaces)
+
+** Testing network connectivity
+- `ping` (send ICMP echo request): Tests network connectivity to a specific host.
+   Example: `ping google.com` (sends ICMP echo requests to Google's servers)
+
+** Checking open ports
+- `netstat` (network statistics): Displays active network connections and listening ports.
+   Example: `netstat -tuln` (displays TCP and UDP listening ports)
+
+** Transferring files over the network
+- `scp` (secure copy): Copies files securely between hosts over SSH.
+   Example: `scp file.txt user@remote:/path/to/destination` (copies file.txt to a remote host)
+
+
+* Miscellaneous Commands
+
+** Checking disk usage
+- `df` (disk free): Displays disk space usage of file systems.
+   Example: `df -h` (displays disk space usage in human-readable format)
+
+** Checking system information
+- `uname` (print system information): Displays information about the system.
+   Example: `uname -a` (displays all system information)
+
+** Input/output redirection
+- `>` (output redirection): Redirects the output of a command to a file.
+   Example: `ls -l > file.txt` (saves the output of `ls -l` to file.txt)
+
+- `>>` (output redirection, append version): Redirects the output of a command to a file, appends to file contents.
+   Example: `ls -l >> file.txt` (appends the output of `ls -l` to file.txt)
+   
+** File and directory timestamps
+- `touch` (change file timestamps): Updates the access and modification timestamps of a file.
+   Example: `touch file.txt` (updates the timestamps of file.txt to the current time)
+
+** Command history
+- `history` (display command history): Displays a list of previously executed commands.
+   Example: `history | grep "keyword"` (searches command history for commands containing "keyword")
+
+** Compressing and decompressing files
+- `tar` (tape archive): Archives multiple files into a single file.
+   Example: `tar -czvf archive.tar.gz file1 file2` (creates a compressed tarball of specified files)
+
+** Date and time
+- `date` (display or set date and time): Displays the current date and time.
+   Example: `date` (displays the current date and time)
+
+* Crontab
+
+** Introduction to cron
+Overview of cron and its usage
+Scheduling tasks at specific times or intervals
+
+** Managing cron jobs
+- `crontab` (cron table): Schedules and manages cron jobs.
+   Example: `crontab -l` (lists the user's cron table)
+
+** Writing cron job entries
+Cron syntax for defining job schedules
+Examples of common cron job entries   
+
+Certainly! Here are some examples of cron jobs with explanations:
+
+*** Scheduling a Daily Backup
+   ```
+   0 0 * * * /path/to/backup_script.sh
+   ```
+   This cron job runs the `backup_script.sh` script every day at midnight (00:00). It is useful for automating regular backups of important data.
+
+*** Running a Weekly System Update
+   ```
+   0 2 * * 6 apt-get update && apt-get upgrade -y
+   ```
+   This cron job updates the system's package repositories and performs a system upgrade every Saturday at 2:00 AM. It helps keep the system up to date with the latest security patches and software updates.
+
+*** Generating a Monthly Report
+   ```
+   0 12 1 * * /path/to/report_script.sh
+   ```
+   This cron job runs the `report_script.sh` script on the 1st day of every month at 12:00 PM. It can be used to generate monthly reports or perform any other recurring monthly tasks.
+
+*** Clearing Temporary Files
+   ```
+   0 3 * * * find /path/to/temp -type f -mtime +7 -delete
+   ```
+   This cron job deletes all files in the `/path/to/temp` directory that are older than 7 days. It runs every day at 3:00 AM and helps keep temporary files under control to save disk space.
+
+*** Sending a Daily Email Reminder
+   ```
+   0 8 * * * echo "Don't forget your daily tasks!" | mail -s "Daily Reminder" user@example.com
+   ```
+   This cron job sends an email reminder every day at 8:00 AM to the specified user (`user@example.com`). The reminder message can be customized as per the needs, and it serves as a helpful tool for sending automated reminders.
+
+
+
+* Basic Shell Scripting
+** Introduction to shell scripting
+Overview of shell scripting
+Different kinds of shells
+
+```sh
+echo $SHELL
+```
+
+** Writing and running shell scripts
+Creating and editing shell scripts
+Executing shell scripts
+Example: `#!/bin/bash`
+
+** Variables and control structures
+Declaring and using variables
+Conditional statements and loops in shell scripts
+
+** Example: Backup Script
+A practical example of a shell script for automating backups.
+
+*** Step 1: Setting Variables
+Setting variables for source and destination directories.
+
+```bash
+#!/bin/bash
+
+# Variables
+source_dir="/path/to/source"
+dest_dir="/path/to/destination"
+```
+
+*** Step 2: Creating a Backup Directory
+Creating a directory to store the backup.
+
+```bash
+# Create backup directory
+backup_dir="$dest_dir/backup_$(date +'%Y%m%d')"
+mkdir -p "$backup_dir"
+```
+
+*** Step 3: Copying Files
+Copying files from the source directory to the backup directory.
+
+```bash
+# Copy files
+cp -R "$source_dir" "$backup_dir"
+```
+
+*** Step 4: Verifying the Backup
+Verifying the backup by comparing file counts.
+
+```bash
+# Verify backup
+source_files=$(find "$source_dir" -type f | wc -l)
+backup_files=$(find "$backup_dir" -type f | wc -l)
+
+if [ "$source_files" -eq "$backup_files" ]; then
+    echo "Backup successful!"
+else
+    echo "Backup failed!"
+fi
+```
+
+** Example: File Renamer Script
+A shell script to batch rename files in a directory.
+
+*** Step 1: Setting Variables
+Setting the directory and prefix variables.
+
+```bash
+#!/bin/bash
+
+# Variables
+directory="/path/to/files"
+prefix="new_"
+```
+
+*** Step 2: Renaming Files
+Renaming files in the specified directory.
+
+```bash
+# Rename files
+cd "$directory"
+
+for file in *; do
+    new_name="$prefix$file"
+    mv "$file" "$new_name"
+done
+```
+
+** Example: Number Guessing Game
+A simple shell script to play a number guessing game.
+
+*** Step 1: Generating a Random Number
+Generating a random number between 1 and 100.
+
+```bash
+#!/bin/bash
+
+# Generate random number
+target=$(( RANDOM % 100 + 1 ))
+```
+
+*** Step 2: Playing the Game
+Prompting the user to guess the number and providing feedback.
+
+```bash
+# Play the game
+echo "Welcome to the Number Guessing Game!"
+
+while true; do
+    read -p "Enter your guess (1-100): " guess
+
+    if [ "$guess" -eq "$target" ]; then
+        echo "Congratulations! You guessed correctly."
+        break
+    elif [ "$guess" -lt "$target" ]; then
+        echo "Too low. Try again."
+    else
+        echo "Too high. Try again."
+    fi
+done
+```
+
+** Storing the output of a command in a variable
+Executing commands within other commands ($(command))
+
+** Error handling of previusly run command
+```sh
+echo $?
+```
+
+** Tracing script execution
+```sh
+set -x
+```
+
+* Environmental Variables
+
+** Introduction to Environmental Variables
+
+- Environmental variables are variables that hold information used by programs and scripts to customize behavior or provide configuration settings.
+- They are part of the environment in which a process runs, and they can be accessed by the program during runtime.
+
+** Setting Environmental Variables
+
+- To set an environmental variable, you can use the `export` command followed by the variable name and value.
+   Example: `export MY_VARIABLE="Hello, World!"`
+
+
+**Note** The changes made to environmental variables are only applicable to the current session or its child processes. To make the changes persistent, they should be added to the shell configuration file (e.g., `~/.bashrc` or `~/.bash_profile`).
+
+** Unsetting Environmental Variables
+
+- To unset an environmental variable, you can use the `unset` command followed by the variable name.
+   Example: `unset MY_VARIABLE`
+
+** Common Environmental Variables
+
+*** PATH
+Specifies a list of directories where the shell looks for executable files.
+
+*** HOME
+Stores the path to the current user's home directory.
+
+*** USER
+Contains the username of the currently logged-in user.
+
+** Accessing Environmental Variables
+
+- To access the value of an environmental variable, you can use the `$` symbol followed by the variable name.
+   Example: `echo $MY_VARIABLE`
+
+- The shell will replace `$MY_VARIABLE` with the actual value of the variable when executing the command.
+
+- the command `env` will list all environmental variables in current session.
+
+
+Certainly! Here's an Org Reveal chapter on SSH:
+
+* ssh
+
+** Intro
+
+- SSH (Secure Shell) is a cryptographic network protocol that provides secure remote access to systems and secure file transfers.
+- It allows users to securely log into remote machines over an unsecured network, such as the internet, and execute commands or transfer files.
+
+** Key Concepts
+
+*** Client-Server Model
+SSH operates on a client-server model. The SSH client initiates a connection to the SSH server to establish a secure communication channel.
+
+*** Public Key Cryptography
+SSH uses public key cryptography for secure authentication and key exchange. It involves generating a key pair consisting of a public key and a private key.
+
+*** Secure Communication
+SSH ensures the confidentiality and integrity of data transmitted over the network by encrypting the communication between the client and the server.
+
+** Connecting to a Remote Server
+
+*** Syntax
+
+- To connect to a remote server using SSH, you can use the following syntax:
+
+  ```
+  ssh username@hostname
+  ```
+
+- Replace `username` with your username on the remote server, and `hostname` with the IP address or domain name of the remote server.
+
+*** Example
+
+- Connecting to a remote server with the username "user" and IP address "192.168.1.100":
+
+  ```
+  ssh user@192.168.1.100
+  ```
+
+- Upon successful authentication, you will be granted access to the remote server's command-line interface.
+
+** SSH Key-Based Authentication
+
+*** Key Generation
+
+- SSH key-based authentication provides a more secure and convenient way to authenticate to remote servers.
+- To generate an SSH key pair, you can use the `ssh-keygen` command.
+
+*** Example
+
+- Generating an RSA key pair:
+
+  ```
+  ssh-keygen -t rsa
+  ```
+
+- By default, the key pair is generated in the `~/.ssh` directory with the filenames `id_rsa` (private key) and `id_rsa.pub` (public key).
+
+*** Key Distribution
+
+- To use key-based authentication, the public key needs to be copied to the remote server's `~/.ssh/authorized_keys` file.
+- You can use the `ssh-copy-id` command to copy the public key to the remote server.
+
+*** Example
+
+- Copying the public key to a remote server:
+
+  ```
+  ssh-copy-id user@192.168.1.100
+  ```
+
+- You will be prompted for the password of the remote server's user. After successful authentication, the public key will be added to the `authorized_keys` file.
+
+*** Key-Based Authentication
+
+- Once the public key is added to the `authorized_keys` file, you can authenticate to the remote server without entering a password.
+- The private key stored on your local machine will be used for authentication.
+
+  **NOTE** ssh authentication can also be password based, although it is not recommended to use ssh that way.
+** Secure File Transfer with SCP
+
+*** Syntax
+
+- SCP (Secure Copy) is a command-line tool used for secure file transfers between local and remote systems. The syntax is as follows:
+
+  ```
+  scp [options] source_file destination_file
+  ```
+
+- Replace `source_file` with the path to the local file you want to transfer and `destination_file` with the path on the remote server where you want to save the file.
+
+*** Example
+
+- Copying a local file to a remote server:
+
+  ```
+  scp /path/to/local/file user@192.168.1.100:/path/on/remote/server
+  ```
+
+- The file will be securely transferred to the specified location on the remote server.
+
+
+* Kafka CLI Commands
+
+** Introduction to Kafka CLI
+
+- Kafka Command Line Interface (CLI) provides a set of command-line tools to interact with Apache Kafka.
+- It allows you to perform various administrative and data-related operations on Kafka clusters.
+
+** Kafka CLI Commands
+
+*** kafka-topics
+
+- The =kafka-topics= command is used to create, list, describe, and modify Kafka topics.
+- It allows you to manage topic configurations, such as replication factor, partition count, and topic deletion.
+
+*** Example
+
+Creating a new topic:
+
+#+begin_src bash
+   kafka-topics --create --topic my-topic --partitions 3 \
+                --replication-factor 2 \
+                --bootstrap-server localhost:9092
+#+end_src
+
+*** kafka-console-producer
+
+- The `kafka-console-producer` command is used to send messages to a specific Kafka topic.
+- It allows you to interactively or programmatically produce messages to Kafka.
+
+*** Example
+
+Sending messages to a topic using the console producer:
+
+  ```
+  kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
+  ```
+
+*** kafka-console-consumer
+
+- The `kafka-console-consumer` command is used to consume messages from a Kafka topic.
+- It allows you to read messages from the beginning or from a specific offset in real-time or as a batch.
+
+*** Example
+
+- Consuming messages from a topic using the console consumer:
+
+  ```
+  kafka-console-consumer --topic my-topic --bootstrap-server localhost:9092
+  ```
+
+*** kafka-configs
+
+- The `kafka-configs` command is used to manage and view topic and broker configurations.
+- It allows you to add, delete, or update configuration settings for topics or brokers.
+
+*** Example
+
+- Listing the configurations of a topic:
+
+  ```
+  kafka-configs --bootstrap-server localhost:9092 --alter --entity-type topics --entity-name first_topic --add-config min.insync.replicas=2
+  ```
+
+- Alter broker configuration:
+
+```
+kafka-configs --bootstrap-server localhost:9092 --entity-type brokers --entity-name 0 --alter --add-config log.cleaner.threads=2
+```
